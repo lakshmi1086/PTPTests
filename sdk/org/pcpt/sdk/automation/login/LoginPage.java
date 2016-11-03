@@ -26,12 +26,13 @@ public class LoginPage {
 	protected WebElement btnLogin;
 
 	/**
-	 * Login
+	 * This method is used for login
 	 * 
 	 * @param username
 	 *            username
 	 * @param password
 	 *            password
+	 * @author Lakshmi           
 	 */
 	public void login(String productGroup, String username, String password) {
 		Select drpProduct = new Select(drpProductGroup);
