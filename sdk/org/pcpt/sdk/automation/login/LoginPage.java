@@ -2,6 +2,7 @@ package org.pcpt.sdk.automation.login;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 
 /**
  * Page class which replicates the view of login page
@@ -9,13 +10,20 @@ import org.openqa.selenium.support.FindBy;
 public class LoginPage {
 
 	@FindBy(id = "username")
+	
 	protected WebElement usernameInputBox;
 
+	@FindBy(id = "platform")
+	protected WebElement drpProductGroup;
+	
+	@FindBy(id = "username")
+	protected WebElement txtUserName;
+		
 	@FindBy(id = "password")
-	protected WebElement passwordInputBox;
+	protected WebElement txtPassword;
 
-	@FindBy(id = "loginbutton")
-	protected WebElement loginButton;
+	@FindBy(css = "button.login-btn.btn.btn-primary")
+	protected WebElement btnLogin;
 
 	/**
 	 * Login
@@ -25,9 +33,11 @@ public class LoginPage {
 	 * @param password
 	 *            password
 	 */
-	public void login(String username, String password) {
-		usernameInputBox.sendKeys(username);
-		passwordInputBox.sendKeys(password);
-		loginButton.clear();
+	public void login(String productGroup, String username, String password) {
+		Select drpProduct = new Select(drpProductGroup);
+		drpProduct.selectByVisibleText(productGroup);
+		txtUserName.sendKeys(username);
+		txtPassword.sendKeys(password);
+		btnLogin.click();
 	}
 }
