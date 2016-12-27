@@ -12,7 +12,7 @@ import org.testng.annotations.BeforeSuite;
  * <b>Note:</b> All test classed should extend this test base
  */
 public class TestBase {
-	public WebDriver driver;
+	public static WebDriver driver;
 	private String url;
 	private String className = this.getClass().getSimpleName();
 
@@ -22,7 +22,7 @@ public class TestBase {
 		driver = DriverFactory.getInstance().getDriver();
 		driver.get(url);
 		
-		LogReporter.getInstance().logInfo(className, "Luanched browser");
+		LogReporter.getInstance().logInfo(className, "Launched browser");
 	}
 
 	@AfterSuite

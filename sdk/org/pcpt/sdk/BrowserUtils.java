@@ -1,5 +1,7 @@
 package org.pcpt.sdk;
 
+import org.openqa.selenium.support.PageFactory;
+
 /**
  * Class responsible to provider browser driver for Chrome and Internet Explorer
  * <br>
@@ -77,7 +79,7 @@ public class BrowserUtils {
 		}
 
 		if (is64bitSystem) {
-			path = path.replace("<bits>", "64bits");
+			path = path.replace("<bits>", "32bits");
 		} else {
 			path = path.replace("<bits>", "32bits");
 		}
@@ -93,6 +95,8 @@ public class BrowserUtils {
 	 * @return String
 	 */
 	public String getIEDriverPath() {
+		
+		
 		String path = System.getProperty("user.dir");
 
 		String osFamily = getOsFamily();
