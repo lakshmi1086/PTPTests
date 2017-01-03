@@ -1,4 +1,4 @@
-package org.pcpt.test.mudule.login;
+package org.pcpt.test.module.login;
 
 import org.pcpt.sdk.Constants;
 import org.pcpt.sdk.TestDataReader;

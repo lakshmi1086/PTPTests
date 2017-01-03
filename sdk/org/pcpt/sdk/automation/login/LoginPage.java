@@ -14,7 +14,6 @@ import org.ptp.product.ProductPage;
 public class LoginPage {
 
 	@FindBy(id = "username")
-	
 	protected WebElement usernameInputBox;
 
 	@FindBy(id = "platform")
@@ -53,7 +52,7 @@ public class LoginPage {
 	
 	public void sendPassword(String password){
 		txtPassword.sendKeys(password);
-		LogReporter.getInstance().logInfo(this.getClass().toString(), "Entered user name " +password);
+		LogReporter.getInstance().logInfo(this.getClass().toString(), "Entered password " +password);
 	}
 	
 	public void clickLoginButton(){
@@ -61,7 +60,7 @@ public class LoginPage {
 		LogReporter.getInstance().logInfo(this.getClass().toString(), "Login successful ");
 	}
 	
-	public ProductPage login(String productGroup, String username, String password) {
+	public void login(String productGroup, String username, String password) {
 		//System.out.println(driver);
 		/*Select drpProduct = new Select(driver.findElement(By.id("platform")));
 		drpProduct.selectByVisibleText(productGroup);
@@ -73,7 +72,7 @@ public class LoginPage {
 		sendUserName(username);
 		sendPassword(password);
 		clickLoginButton();		
-		return new ProductPage();
+		
 	}
 }
 

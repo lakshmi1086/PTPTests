@@ -1,4 +1,4 @@
-package org.pcpt.test.mudule.login;
+package org.pcpt.test.module.login;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -10,6 +10,7 @@ import org.pcpt.sdk.PropertiesReader;
 import org.pcpt.sdk.TestBase;
 import org.pcpt.sdk.automation.login.LoginPage;
 import org.ptp.product.ProductPage;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class LoginTest extends TestBase {
@@ -21,13 +22,15 @@ public class LoginTest extends TestBase {
 	String password;
 	PropertiesReader reader; 
 	
-	
+	@BeforeTest
+	public void instantiateLogin(){
+		login = PageFactory.initElements(driver, LoginPage.class);
+		
+	}
 	
 	@Test
 	public void loginTest() {
-		login = PageFactory.initElements(driver, LoginPage.class);
-		product = new ProductPage();
-		LogReporter.getInstance().logInfo("TestClass1", "LoggedByCode");
+		
 		System.out.println("Logging into PTP application");
 		reader=new PropertiesReader(Constants.BUILD_PROERTIES_PATH);
 		productGroup=reader.getPropertyValue("ProductGroup");
@@ -35,18 +38,9 @@ public class LoginTest extends TestBase {
 		password=reader.getPropertyValue("InformITPassword");
 		System.out.println(driver);
 		
-		product=login.login(productGroup, userName, password);
+		login.login(productGroup, userName, password);
 		
 	}
 	
-	@Test
-	public void loginTest2() {
-		LogReporter.getInstance().logInfo("TestClass2", "LoggedByCode");
-		System.out.println("Testing");
-	}
 	
-	@Test
-	public void loginTest3() {
-		System.out.println("Testing");
-	}
 }
