@@ -1,8 +1,11 @@
 package org.pcpt.sdk;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
@@ -16,7 +19,7 @@ public class Wait {
 	/**
 	 * Constructor
 	 */
-	Wait(WebDriver driver) {
+	public Wait(WebDriver driver) {
 		this.driver = driver;
 		propReader = new PropertiesReader(Constants.BUILD_PROERTIES_PATH);
 		String tout = propReader.getPropertyValue("explicit.timeout");
@@ -37,5 +40,10 @@ public class Wait {
 		};
 		WebDriverWait wait = new WebDriverWait(driver, timeout);
 		wait.until(pendingHttpCallsCondition);
+	}
+	
+	public void waitUntilElementIsVisible(By locator,WebElement element, String logmessage){
+		WebDriverWait wait = new WebDriverWait(driver, timeout);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 }

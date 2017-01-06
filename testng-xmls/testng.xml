@@ -2,10 +2,11 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="PTP Suite">
-    <test name="Login">
+    <test name="PTP Test" preserve-order="true">
         <classes>
             <class name="org.pcpt.test.module.login.LoginTest" />
             <class name="org.pcpt.test.module.Product.ActivateProductTest" />
+            <class name="org.pcpt.test.module.login.LogoutTest" />
         </classes>
     </test>
     
