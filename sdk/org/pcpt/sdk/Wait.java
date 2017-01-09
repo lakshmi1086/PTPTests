@@ -15,6 +15,7 @@ public class Wait {
 	private WebDriver driver;
 	private static PropertiesReader propReader;
 	private int timeout;
+	WebDriverWait wait;
 
 	/**
 	 * Constructor
@@ -24,6 +25,7 @@ public class Wait {
 		propReader = new PropertiesReader(Constants.BUILD_PROERTIES_PATH);
 		String tout = propReader.getPropertyValue("explicit.timeout");
 		timeout = Integer.parseInt(tout);
+		wait = new WebDriverWait(driver, timeout);
 	}
 
 	/**
@@ -42,8 +44,25 @@ public class Wait {
 		wait.until(pendingHttpCallsCondition);
 	}
 	
-	public void waitUntilElementIsVisible(By locator,WebElement element, String logmessage){
-		WebDriverWait wait = new WebDriverWait(driver, timeout);
+	public void waitUntilElementIsVisible(By locator, String logmessage){
+		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+	}
+	
+	public void waitForPageToLoad(){
+		 ExpectedCondition<Boolean> pageLoadCondition = new
+	                ExpectedCondition<Boolean>() {
+	                    public Boolean apply(WebDriver driver) {
+	                        return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+	                    }
+	                };
+	   
+	        wait.until(pageLoadCondition);
+		
+		
+	}
+	
+	public void waitUntilElementIsClickable(By locator){
+		wait.until(ExpectedConditions.elementToBeClickable(locator));
 	}
 }

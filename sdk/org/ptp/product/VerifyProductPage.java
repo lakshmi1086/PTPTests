@@ -12,6 +12,6 @@ public class VerifyProductPage {
 	}
 	
 	public void verifyActivationMessage(WebElement activationMessage,String message){
-		Assert.assertTrue(activationMessage.getText().contains(message));
+				Assert.assertTrue(activationMessage.getText().contains(message));
 	}
 }

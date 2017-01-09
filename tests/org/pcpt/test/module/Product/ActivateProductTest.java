@@ -2,7 +2,10 @@ package org.pcpt.test.module.Product;
 
 
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
+import org.pcpt.sdk.Constants;
 import org.pcpt.sdk.LogReporter;
+import org.pcpt.sdk.PropertiesReader;
 import org.pcpt.sdk.TestBase;
 import org.pcpt.sdk.Wait;
 import org.ptp.product.ProductPage;
@@ -17,6 +20,7 @@ public class ActivateProductTest extends TestBase {
 	VerifyProductPage verifyObj;
 	String validActivationMessage="You have successfully activated";
 	Wait wait;
+	PropertiesReader reader; 
 	
 	@BeforeClass
 	public void initializeProductPage(){
@@ -36,9 +40,18 @@ public class ActivateProductTest extends TestBase {
 	
 	@Test
 	public void validActivateProductTest() throws Exception{
-		product.activateProduct("8465EB82D842");
+		reader = new PropertiesReader(Constants.BUILD_PROERTIES_PATH);
+		String accessCode=reader.getPropertyValue("AccessCode");
+		String productName=reader.getPropertyValue("ProductName");
+		product.activateProduct(accessCode);
 		verifyObj.verifyActivationMessage(product.activationMessage, validActivationMessage );
-		Assert.assertTrue(product.productList.getText().contains("CompTIA Network+ N10-006 Authorized Cert Guide"));
+		//System.out.println("Products Activated " +product.productList.getText());
+		for(WebElement activatedproduct : product.getProducts()){
+		if(activatedproduct.getText().equalsIgnoreCase(productName)){
+			LogReporter.getInstance().logInfo(this.getClass().toString(), "Successfully activated product " +productName);
+			break;
+		}
+		}
 		
 	}
 	

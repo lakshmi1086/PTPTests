@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import org.pcpt.sdk.LogReporter;
+import org.pcpt.sdk.Wait;
 import org.ptp.product.ProductPage;
 
 /**
@@ -72,6 +73,8 @@ public class LoginPage {
 		sendUserName(username);
 		sendPassword(password);
 		clickLoginButton();		
+	
+		
 		
 	}
 }

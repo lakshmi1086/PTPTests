@@ -8,6 +8,7 @@ import org.pcpt.sdk.Constants;
 import org.pcpt.sdk.LogReporter;
 import org.pcpt.sdk.PropertiesReader;
 import org.pcpt.sdk.TestBase;
+import org.pcpt.sdk.Wait;
 import org.pcpt.sdk.automation.login.LoginPage;
 import org.ptp.product.ProductPage;
 import org.testng.annotations.BeforeTest;
@@ -39,6 +40,7 @@ public class LoginTest extends TestBase {
 		System.out.println(driver);
 		
 		login.login(productGroup, userName, password);
+		
 		
 	}
 	
