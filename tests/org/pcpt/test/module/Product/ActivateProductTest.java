@@ -18,7 +18,8 @@ public class ActivateProductTest extends TestBase {
 	
 	ProductPage product;
 	VerifyProductPage verifyObj;
-	String validActivationMessage="You have successfully activated";
+	String activationMessage="";
+	
 	Wait wait;
 	PropertiesReader reader; 
 	
@@ -35,7 +36,7 @@ public class ActivateProductTest extends TestBase {
 		System.out.println("Testing");
 		boolean productactivated = product.isProductActivated();
 		System.out.println(" Product Activated" +productactivated);
-		//LogReporter.getInstance().logInfo(this.getClass().toString(), "Product Activated " +productactivated);*/
+		//LogReporter.getInstance().logInfo(this.getClass().toString(), "Product Activated " +productactivated);
 	}
 	
 	@Test
@@ -43,18 +44,39 @@ public class ActivateProductTest extends TestBase {
 		reader = new PropertiesReader(Constants.BUILD_PROERTIES_PATH);
 		String accessCode=reader.getPropertyValue("AccessCode");
 		String productName=reader.getPropertyValue("ProductName");
-		product.activateProduct(accessCode);
-		verifyObj.verifyActivationMessage(product.activationMessage, validActivationMessage );
+		activationMessage=product.activateProduct(accessCode, "success");
+		
+		verifyObj.verifyActivationMessage(activationMessage, Constants.validActivationMessage );
 		//System.out.println("Products Activated " +product.productList.getText());
-		for(WebElement activatedproduct : product.getProducts()){
-		if(activatedproduct.getText().equalsIgnoreCase(productName)){
-			LogReporter.getInstance().logInfo(this.getClass().toString(), "Successfully activated product " +productName);
-			break;
-		}
-		}
+		Assert.assertTrue("Product " +productName+ "does not exist", product.isProductDisplayed(productName));
+		
+		
+	}
+	
+	@Test
+	public void invalidActivateProductTest() throws Exception{
+		reader = new PropertiesReader(Constants.BUILD_PROERTIES_PATH);
+		String accessCode=reader.getPropertyValue("InvalidAccessCode");
+		activationMessage=product.activateProduct(accessCode , "warning");
+		verifyObj.verifyActivationMessage(activationMessage, Constants.invalidActivationMessage );
+		product.cancelActivation();
+		//System.out.println("Products Activated " +product.productList.getText());
+		
+	}
+		
+	
+	@Test(dependsOnMethods="validActivateProductTest")
+	public void duplicateActivateProductTest() throws Exception{
+		reader = new PropertiesReader(Constants.BUILD_PROERTIES_PATH);
+		String accessCode=reader.getPropertyValue("AccessCode");
+		activationMessage=product.activateProduct(accessCode, "warning");
+		verifyObj.verifyActivationMessage(activationMessage, Constants.alreadyActivatedmessage );
+		product.cancelActivation();
+		
+	}
 		
 	}
 	
 	
 
-}
+

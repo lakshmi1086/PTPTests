@@ -11,7 +11,7 @@ public class VerifyProductPage {
 		//Assert.assertTrue(activateBtn.getText().equalsIgnoreCase("Activate New Product"), "Activate Button Text verification failed");
 	}
 	
-	public void verifyActivationMessage(WebElement activationMessage,String message){
-				Assert.assertTrue(activationMessage.getText().contains(message));
+	public void verifyActivationMessage(String activationMessage,String message){
+				Assert.assertTrue(activationMessage.contains(message));
 	}
 }

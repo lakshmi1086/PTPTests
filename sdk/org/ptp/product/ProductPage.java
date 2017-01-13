@@ -32,12 +32,17 @@ public class ProductPage {
 	@FindBy(css="button.btn.btn-primary")
 	public WebElement activateBtn;
 	
+	@FindBy(css="button.btn.btn-warning")
+	public WebElement cancelBtn;
+	
+	
 	String productText="";
 	public WebElement activationMessage;
 	List<WebElement> myProducts;
 	
 	
 	public VerifyProductPage verifyObj;
+	boolean activatedFlag=false;
 	
 	public ProductPage(WebDriver driver){
 		this.driver=driver;
@@ -55,7 +60,7 @@ public class ProductPage {
 		
 	}
 	
-	public void activateProduct(String accessCode) throws Exception{
+	public String activateProduct(String accessCode , String messageLocator) throws Exception{
 		Wait wait = new Wait(driver);
 		wait.waitForPageToLoad();
 		activateProductBtn.click();
@@ -66,9 +71,10 @@ public class ProductPage {
 		activateBtn.click();
 		LogReporter.getInstance().logInfo(this.getClass().toString(), "Clicked Activate button");
 		//Thread.sleep(2000);
-		wait.waitUntilElementIsVisible(By.cssSelector("div.alert.alert-success.fade.in>span.ng-binding"), "Element Not Visible");
-		activationMessage= driver.findElement(By.cssSelector("div.alert.alert-success.fade.in>span.ng-binding"));
+		wait.waitUntilElementIsVisible(By.cssSelector("div.alert.alert-" +messageLocator+ ".fade.in>span.ng-binding"), "Element Not Visible");
+		activationMessage= driver.findElement(By.cssSelector("div.alert.alert-" +messageLocator+ ".fade.in>span.ng-binding"));
 		System.out.println("Activation message" +activationMessage.getText());
+		return activationMessage.getText();
 				
 	}
 	
@@ -85,9 +91,27 @@ public class ProductPage {
 	
 	public List<WebElement> getProducts(){
 		myProducts=driver.findElements(By.cssSelector("div#productName"));
-		System.out.println("My Products : "  +myProducts.get(0).getText());
+		System.out.println("My Products : "  +myProducts.size());
 		return myProducts;
 		
+	}
+	
+	
+	public boolean isProductDisplayed(String productName){
+		List<WebElement> products=getProducts();
+		for(WebElement activatedproduct : products){
+			System.out.println(activatedproduct.getText());
+			if(activatedproduct.getText().equalsIgnoreCase(productName)){
+				activatedFlag=true;
+				break;
+			}
+		}
+		return activatedFlag;
+		
+	}
+	public void cancelActivation(){
+		cancelBtn.click();
+		LogReporter.getInstance().logInfo(this.getClass().toString(), "Clicked Cancel button");
 	}
 }
 

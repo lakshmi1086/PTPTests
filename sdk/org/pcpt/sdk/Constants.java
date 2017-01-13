@@ -11,4 +11,7 @@ public class Constants {
 
 	public static final String USERS_TEST_DATA_FILE_PATH = "/test-data/users.json";
 	public static final String QUESTIONS_TEST_DATA_FILE_PATH = "/test-data/questions.json";
+	public static final String validActivationMessage="You have successfully activated";
+	public static final String invalidActivationMessage = "Invalid Access code";
+	public static final String alreadyActivatedmessage= "You have already activated";
 }
