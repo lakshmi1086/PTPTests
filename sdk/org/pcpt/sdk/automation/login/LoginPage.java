@@ -30,6 +30,7 @@ public class LoginPage {
 		passwordInputBox.sendKeys(password);
 		loginButton.clear();
 		System.out.println("Login Successful");
+		System.out.println("branch 1");
 		
 	}
 }
