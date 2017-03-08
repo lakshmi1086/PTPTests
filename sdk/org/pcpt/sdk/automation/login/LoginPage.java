@@ -29,5 +29,7 @@ public class LoginPage {
 		usernameInputBox.sendKeys(username);
 		passwordInputBox.sendKeys(password);
 		loginButton.clear();
+		System.out.println("Login Successful");
+		
 	}
 }
