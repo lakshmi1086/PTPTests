@@ -22,5 +22,6 @@ public class VerifyLoginPage {
 	 */
 	public void hasDisplayedUserNameInputBox (WebElement element) {
 		It.shouldBeVisible(loginPage.usernameInputBox);
+		System.out.println("branch 2");
 	}
 }
