@@ -16,6 +16,7 @@ public class LoginTest extends TestBase {
 	public void loginTest1() {
 		LogReporter.getInstance().logInfo("TestClass1", "LoggedByCode");
 		System.out.println("Testing");
+		System.out.println("Develop branch");
 	}
 	
 	@Test
